@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -14,126 +14,177 @@
 
     body {
       margin: 0;
-      padding: 20px;
+      padding: 15px;
       font-family: Arial, sans-serif;
-      background: #0f172a;
+      background: #0b1120;
       color: white;
     }
 
     .container {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 5px;
+      margin: 8px 0 5px;
+      font-size: 28px;
     }
 
     .subtitle {
       text-align: center;
       color: #94a3b8;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .price-box {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 15px;
+      background: #172033;
+      border-radius: 18px;
+      padding: 22px;
       text-align: center;
       margin-bottom: 15px;
     }
 
+    .price-label {
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
     .price {
-      font-size: 32px;
+      font-size: 34px;
       font-weight: bold;
     }
 
-    .update {
-      color: #94a3b8;
+    .status {
+      margin-top: 10px;
       font-size: 13px;
-      margin-top: 8px;
+      color: #94a3b8;
+    }
+
+    .online {
+      color: #22c55e;
+    }
+
+    .offline {
+      color: #ef4444;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-bottom: 15px;
     }
 
     .card {
-      background: #1e293b;
-      padding: 16px;
-      border-radius: 12px;
+      background: #172033;
+      padding: 17px;
+      border-radius: 14px;
     }
 
     .card-title {
       color: #94a3b8;
       font-size: 13px;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .card-value {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: bold;
+      word-break: break-word;
     }
 
-    .trading-box {
-      background: #1e293b;
+    .trading-box,
+    .chart-box,
+    .history {
+      background: #172033;
+      border-radius: 18px;
       padding: 20px;
-      border-radius: 15px;
       margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      color: #cbd5e1;
+      margin-top: 12px;
+      margin-bottom: 6px;
     }
 
     input {
       width: 100%;
       padding: 14px;
-      border: none;
+      border: 1px solid #334155;
       border-radius: 10px;
-      background: #334155;
+      background: #0f172a;
       color: white;
       font-size: 16px;
-      margin: 8px 0 12px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #60a5fa;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     button {
       border: none;
-      padding: 13px 20px;
+      padding: 14px;
       border-radius: 10px;
+      color: white;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      margin-right: 8px;
     }
 
     .buy {
-      background: #22c55e;
-      color: white;
+      background: #16a34a;
     }
 
     .sell {
-      background: #ef4444;
-      color: white;
+      background: #dc2626;
     }
 
-    .chart-box {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 15px;
+    button:active {
+      transform: scale(0.98);
     }
 
-    .history {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 15px;
+    .message {
+      min-height: 22px;
+      margin-top: 14px;
+      color: #facc15;
+      font-weight: bold;
+      text-align: center;
     }
 
     .transaction {
+      padding: 12px 0;
       border-bottom: 1px solid #334155;
-      padding: 10px 0;
-      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .transaction:last-child {
+      border-bottom: none;
+    }
+
+    .buy-text {
+      color: #22c55e;
+      font-weight: bold;
+    }
+
+    .sell-text {
+      color: #ef4444;
+      font-weight: bold;
     }
 
     .profit {
@@ -144,23 +195,31 @@
       color: #ef4444;
     }
 
-    .message {
-      margin-top: 12px;
-      color: #facc15;
-      font-weight: bold;
+    .empty {
+      color: #94a3b8;
+      text-align: center;
+      padding: 15px;
+    }
+
+    canvas {
+      max-height: 300px;
     }
 
     @media (max-width: 500px) {
       body {
-        padding: 12px;
+        padding: 10px;
       }
 
-      .cards {
-        grid-template-columns: 1fr 1fr;
+      h1 {
+        font-size: 24px;
       }
 
       .price {
-        font-size: 26px;
+        font-size: 28px;
+      }
+
+      .card-value {
+        font-size: 16px;
       }
     }
   </style>
@@ -171,90 +230,155 @@
 <div class="container">
 
   <h1>₿ BTC Trading Simulator</h1>
-  <div class="subtitle">Simulasi Trading BTC/USDT</div>
 
-  <div class="price-box">
-    <div>Harga BTC/USDT</div>
-    <div class="price" id="price">Mengambil harga...</div>
-    <div class="update" id="update">Menunggu data...</div>
+  <div class="subtitle">
+    Simulasi Trading BTC/USDT
   </div>
 
+  <!-- HARGA -->
+  <div class="price-box">
+
+    <div class="price-label">
+      Harga BTC
+    </div>
+
+    <div class="price" id="price">
+      Mengambil harga...
+    </div>
+
+    <div class="status" id="status">
+      Menghubungkan ke server harga...
+    </div>
+
+  </div>
+
+
+  <!-- PORTOFOLIO -->
   <div class="cards">
 
     <div class="card">
-      <div class="card-title">Saldo USDT</div>
-      <div class="card-value" id="balance">$1,000.00</div>
+      <div class="card-title">
+        Saldo USDT
+      </div>
+
+      <div class="card-value" id="balance">
+        $1,000.00
+      </div>
     </div>
 
-    <div class="card">
-      <div class="card-title">BTC Dimiliki</div>
-      <div class="card-value" id="btc">0 BTC</div>
-    </div>
 
     <div class="card">
-      <div class="card-title">Nilai Portofolio</div>
-      <div class="card-value" id="portfolio">$1,000.00</div>
+      <div class="card-title">
+        BTC Dimiliki
+      </div>
+
+      <div class="card-value" id="btc">
+        0 BTC
+      </div>
     </div>
 
+
     <div class="card">
-      <div class="card-title">Profit / Loss</div>
-      <div class="card-value" id="profit">$0.00</div>
+      <div class="card-title">
+        Nilai Portofolio
+      </div>
+
+      <div class="card-value" id="portfolio">
+        $1,000.00
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-title">
+        Profit / Loss
+      </div>
+
+      <div class="card-value" id="profit">
+        $0.00
+      </div>
     </div>
 
   </div>
 
+
+  <!-- TRADING -->
   <div class="trading-box">
 
     <h2>Trading</h2>
 
-    <label>Jumlah USDT untuk Buy</label>
+    <label>
+      Jumlah USDT untuk BUY
+    </label>
 
     <input
-      type="number"
       id="buyAmount"
-      placeholder="Contoh: 100"
-      value="100"
+      type="number"
       min="1"
+      step="0.01"
+      value="100"
+      placeholder="Contoh: 100"
     >
 
-    <button class="buy" onclick="buyBTC()">
+    <button
+      class="buy"
+      style="width:100%; margin-top:10px;"
+      onclick="buyBTC()"
+    >
       BUY BTC
     </button>
 
-    <hr style="border-color:#334155; margin:20px 0;">
 
-    <label>Jumlah BTC untuk Sell</label>
+    <label>
+      Jumlah BTC untuk SELL
+    </label>
 
     <input
-      type="number"
       id="sellAmount"
-      placeholder="Contoh: 0.001"
-      step="0.00000001"
+      type="number"
       min="0"
+      step="0.00000001"
+      placeholder="Contoh: 0.001"
     >
 
-    <button class="sell" onclick="sellBTC()">
+    <button
+      class="sell"
+      style="width:100%; margin-top:10px;"
+      onclick="sellBTC()"
+    >
       SELL BTC
     </button>
 
-    <div class="message" id="message"></div>
+
+    <div
+      class="message"
+      id="message"
+    ></div>
 
   </div>
 
+
+  <!-- GRAFIK -->
   <div class="chart-box">
 
-    <h2>Grafik BTC</h2>
+    <h2>Grafik Harga BTC</h2>
 
     <canvas id="chart"></canvas>
 
   </div>
 
+
+  <!-- RIWAYAT -->
   <div class="history">
 
     <h2>Riwayat Transaksi</h2>
 
     <div id="history">
-      Belum ada transaksi.
+
+      <div class="empty">
+        Belum ada transaksi.
+      </div>
+
     </div>
 
   </div>
@@ -264,35 +388,41 @@
 
 <script>
 
-  // ==============================
+  // ==================================================
   // DATA SIMULASI
-  // ==============================
+  // ==================================================
 
   let balance = 1000;
+
   let btcHold = 0;
 
-  let initialBalance = 1000;
+  const initialBalance = 1000;
+
   let currentPrice = 0;
 
   let transactions = [];
 
-  // ==============================
+
+  // ==================================================
   // FORMAT UANG
-  // ==============================
+  // ==================================================
 
   function money(value) {
 
     return "$" + Number(value).toLocaleString("en-US", {
+
       minimumFractionDigits: 2,
+
       maximumFractionDigits: 2
+
     });
 
   }
 
 
-  // ==============================
+  // ==================================================
   // FORMAT BTC
-  // ==============================
+  // ==================================================
 
   function btcFormat(value) {
 
@@ -301,12 +431,15 @@
   }
 
 
-  // ==============================
+  // ==================================================
   // CHART
-  // ==============================
+  // ==================================================
 
   const ctx =
-    document.getElementById("chart").getContext("2d");
+    document
+      .getElementById("chart")
+      .getContext("2d");
+
 
   const chart = new Chart(ctx, {
 
@@ -318,13 +451,13 @@
 
       datasets: [{
 
-        label: "BTC/USDT",
+        label: "BTC / USD",
 
         data: [],
 
         borderColor: "#3b82f6",
 
-        backgroundColor: "rgba(59,130,246,0.1)",
+        backgroundColor: "rgba(59,130,246,0.10)",
 
         borderWidth: 2,
 
@@ -347,15 +480,32 @@
       scales: {
 
         x: {
+
           ticks: {
-            color: "#94a3b8"
+
+            color: "#94a3b8",
+
+            maxTicksLimit: 6
+
           }
+
         },
 
         y: {
+
           ticks: {
-            color: "#94a3b8"
+
+            color: "#94a3b8",
+
+            callback: function(value) {
+
+              return "$" +
+                Number(value).toLocaleString();
+
+            }
+
           }
+
         }
 
       },
@@ -363,9 +513,13 @@
       plugins: {
 
         legend: {
+
           labels: {
+
             color: "white"
+
           }
+
         }
 
       }
@@ -375,111 +529,357 @@
   });
 
 
-  // ==============================
-  // AMBIL HARGA BTC
-  // ==============================
+  // ==================================================
+  // UPDATE HARGA DI HALAMAN
+  // ==================================================
 
-  async function getPrice() {
+  function setPrice(price, source) {
+
+    if (!price || !isFinite(price)) {
+
+      throw new Error("Harga tidak valid");
+
+    }
+
+    currentPrice = Number(price);
+
+
+    document
+      .getElementById("price")
+      .innerText = money(currentPrice);
+
+
+    const status =
+      document.getElementById("status");
+
+
+    status.innerText =
+      "● Online • Sumber: " + source;
+
+
+    status.className =
+      "status online";
+
+
+    // Grafik
+
+    chart.data.labels.push(
+      new Date().toLocaleTimeString()
+    );
+
+    chart.data.datasets[0].data.push(
+      currentPrice
+    );
+
+
+    // Simpan maksimal 40 titik
+
+    if (chart.data.labels.length > 40) {
+
+      chart.data.labels.shift();
+
+      chart.data.datasets[0].data.shift();
+
+    }
+
+
+    chart.update();
+
+    updateAccount();
+
+  }
+
+
+  // ==================================================
+  // SUMBER 1-5: BINANCE
+  // ==================================================
+
+  const binanceEndpoints = [
+
+    "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+
+    "https://api1.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+
+    "https://api2.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+
+    "https://api3.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+
+    "https://api4.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+
+  ];
+
+
+  async function getBinancePrice() {
+
+    for (const url of binanceEndpoints) {
+
+      try {
+
+        const controller =
+          new AbortController();
+
+
+        const timeout =
+          setTimeout(
+            () => controller.abort(),
+            5000
+          );
+
+
+        const response =
+          await fetch(url, {
+
+            method: "GET",
+
+            cache: "no-store",
+
+            signal: controller.signal
+
+          });
+
+
+        clearTimeout(timeout);
+
+
+        if (!response.ok) {
+
+          continue;
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const price =
+          Number(data.price);
+
+
+        if (price > 0) {
+
+          setPrice(price, "Binance");
+
+          return true;
+
+        }
+
+      }
+
+      catch (error) {
+
+        // Coba endpoint Binance berikutnya
+
+      }
+
+    }
+
+    return false;
+
+  }
+
+
+  // ==================================================
+  // FALLBACK: COINGECKO
+  // ==================================================
+
+  async function getCoinGeckoPrice() {
 
     try {
 
-      const response = await fetch(
-        "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
-      );
+      const controller =
+        new AbortController();
+
+
+      const timeout =
+        setTimeout(
+          () => controller.abort(),
+          7000
+        );
+
+
+      const response =
+        await fetch(
+
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+
+          {
+
+            method: "GET",
+
+            cache: "no-store",
+
+            signal: controller.signal
+
+          }
+
+        );
+
+
+      clearTimeout(timeout);
+
 
       if (!response.ok) {
-        throw new Error("Gagal mengambil harga");
+
+        throw new Error(
+          "CoinGecko HTTP " + response.status
+        );
+
       }
 
-      const data = await response.json();
 
-      currentPrice = parseFloat(data.price);
+      const data =
+        await response.json();
 
-      document.getElementById("price").innerText =
-        money(currentPrice);
 
-      document.getElementById("update").innerText =
-        "Harga diperbarui: " +
-        new Date().toLocaleTimeString();
+      const price =
+        Number(data.bitcoin.usd);
 
-      // Update chart
 
-      chart.data.labels.push(
-        new Date().toLocaleTimeString()
+      if (price <= 0) {
+
+        throw new Error(
+          "Harga tidak valid"
+        );
+
+      }
+
+
+      setPrice(
+        price,
+        "CoinGecko"
       );
 
-      chart.data.datasets[0].data.push(currentPrice);
 
-      // Maksimal 30 data
-
-      if (chart.data.labels.length > 30) {
-
-        chart.data.labels.shift();
-
-        chart.data.datasets[0].data.shift();
-
-      }
-
-      chart.update();
-
-      updateAccount();
+      return true;
 
     }
 
     catch (error) {
 
-      document.getElementById("price").innerText =
-        "Gagal mengambil harga";
-
-      document.getElementById("update").innerText =
-        "Periksa koneksi internet.";
+      return false;
 
     }
 
   }
 
 
-  // ==============================
-  // BUY BTC
-  // ==============================
+  // ==================================================
+  // AMBIL HARGA
+  // ==================================================
+
+  async function getPrice() {
+
+    document
+      .getElementById("status")
+      .innerText =
+      "● Mengambil harga...";
+
+
+    // Coba Binance
+
+    const binanceOK =
+      await getBinancePrice();
+
+
+    if (binanceOK) {
+
+      return;
+
+    }
+
+
+    // Jika Binance gagal,
+    // gunakan CoinGecko
+
+    const coinGeckoOK =
+      await getCoinGeckoPrice();
+
+
+    if (coinGeckoOK) {
+
+      return;
+
+    }
+
+
+    // Semua gagal
+
+    document
+      .getElementById("price")
+      .innerText =
+      "Tidak tersedia";
+
+
+    const status =
+      document.getElementById("status");
+
+
+    status.innerText =
+      "● Gagal mengambil harga";
+
+
+    status.className =
+      "status offline";
+
+  }
+
+
+  // ==================================================
+  // BUY
+  // ==================================================
 
   function buyBTC() {
 
     if (currentPrice <= 0) {
 
-      showMessage("Harga BTC belum tersedia.");
+      showMessage(
+        "Harga BTC belum tersedia."
+      );
 
       return;
 
     }
 
+
     const amount =
-      parseFloat(
-        document.getElementById("buyAmount").value
+      Number(
+        document
+          .getElementById("buyAmount")
+          .value
       );
+
 
     if (!amount || amount <= 0) {
 
-      showMessage("Masukkan jumlah USDT yang benar.");
+      showMessage(
+        "Masukkan jumlah USDT."
+      );
 
       return;
 
     }
+
 
     if (amount > balance) {
 
-      showMessage("Saldo USDT tidak cukup.");
+      showMessage(
+        "Saldo USDT tidak cukup."
+      );
 
       return;
 
     }
+
 
     const btcBought =
       amount / currentPrice;
 
+
     balance -= amount;
 
     btcHold += btcBought;
+
 
     transactions.unshift({
 
@@ -491,15 +891,21 @@
 
       price: currentPrice,
 
-      time: new Date().toLocaleTimeString()
+      time:
+        new Date()
+          .toLocaleString()
 
     });
 
+
     showMessage(
-      "Berhasil membeli " +
+
+      "BUY berhasil: " +
       btcBought.toFixed(8) +
       " BTC"
+
     );
+
 
     updateAccount();
 
@@ -508,47 +914,61 @@
   }
 
 
-  // ==============================
-  // SELL BTC
-  // ==============================
+  // ==================================================
+  // SELL
+  // ==================================================
 
   function sellBTC() {
 
     if (currentPrice <= 0) {
 
-      showMessage("Harga BTC belum tersedia.");
+      showMessage(
+        "Harga BTC belum tersedia."
+      );
 
       return;
 
     }
 
+
     const amount =
-      parseFloat(
-        document.getElementById("sellAmount").value
+      Number(
+        document
+          .getElementById("sellAmount")
+          .value
       );
+
 
     if (!amount || amount <= 0) {
 
-      showMessage("Masukkan jumlah BTC yang benar.");
+      showMessage(
+        "Masukkan jumlah BTC."
+      );
 
       return;
 
     }
+
 
     if (amount > btcHold) {
 
-      showMessage("BTC yang kamu miliki tidak cukup.");
+      showMessage(
+        "BTC yang dimiliki tidak cukup."
+      );
 
       return;
 
     }
 
-    const usdtReceived =
+
+    const received =
       amount * currentPrice;
+
 
     btcHold -= amount;
 
-    balance += usdtReceived;
+    balance += received;
+
 
     transactions.unshift({
 
@@ -556,19 +976,24 @@
 
       btc: amount,
 
-      usdt: usdtReceived,
+      usdt: received,
 
       price: currentPrice,
 
-      time: new Date().toLocaleTimeString()
+      time:
+        new Date()
+          .toLocaleString()
 
     });
 
+
     showMessage(
-      "Berhasil menjual " +
-      amount.toFixed(8) +
-      " BTC"
+
+      "SELL berhasil: " +
+      money(received)
+
     );
+
 
     updateAccount();
 
@@ -577,125 +1002,174 @@
   }
 
 
-  // ==============================
-  // UPDATE ACCOUNT
-  // ==============================
+  // ==================================================
+  // UPDATE PORTOFOLIO
+  // ==================================================
 
   function updateAccount() {
 
     const btcValue =
       btcHold * currentPrice;
 
+
     const portfolio =
       balance + btcValue;
+
 
     const profit =
       portfolio - initialBalance;
 
-    document.getElementById("balance").innerText =
+
+    document
+      .getElementById("balance")
+      .innerText =
       money(balance);
 
-    document.getElementById("btc").innerText =
+
+    document
+      .getElementById("btc")
+      .innerText =
       btcFormat(btcHold);
 
-    document.getElementById("portfolio").innerText =
+
+    document
+      .getElementById("portfolio")
+      .innerText =
       money(portfolio);
 
+
     const profitElement =
-      document.getElementById("profit");
+      document
+        .getElementById("profit");
+
 
     profitElement.innerText =
+
       (profit >= 0 ? "+" : "") +
       money(profit);
 
+
     profitElement.className =
+
       "card-value " +
-      (profit >= 0 ? "profit" : "loss");
+      (profit >= 0
+        ? "profit"
+        : "loss");
 
   }
 
 
-  // ==============================
-  // RIWAYAT TRANSAKSI
-  // ==============================
+  // ==================================================
+  // RIWAYAT
+  // ==================================================
 
   function updateHistory() {
 
-    const historyElement =
-      document.getElementById("history");
+    const element =
+      document
+        .getElementById("history");
+
 
     if (transactions.length === 0) {
 
-      historyElement.innerHTML =
-        "Belum ada transaksi.";
+      element.innerHTML =
+
+        '<div class="empty">' +
+        'Belum ada transaksi.' +
+        '</div>';
 
       return;
 
     }
 
-    historyElement.innerHTML =
-      transactions.map(function(tx) {
 
-        return `
+    element.innerHTML =
 
-          <div class="transaction">
+      transactions
+        .map(function(tx) {
 
-            <strong>${tx.type}</strong>
+          const className =
+            tx.type === "BUY"
+              ? "buy-text"
+              : "sell-text";
 
-            <br>
 
-            ${tx.btc.toFixed(8)} BTC
+          return `
 
-            <br>
+            <div class="transaction">
 
-            Nilai:
-            ${money(tx.usdt)}
+              <div class="${className}">
+                ${tx.type}
+              </div>
 
-            <br>
+              BTC:
+              ${tx.btc.toFixed(8)}
 
-            Harga:
-            ${money(tx.price)}
+              <br>
 
-            <br>
+              Nilai:
+              ${money(tx.usdt)}
 
-            <small>${tx.time}</small>
+              <br>
 
-          </div>
+              Harga:
+              ${money(tx.price)}
 
-        `;
+              <br>
 
-      }).join("");
+              <small>
+                ${tx.time}
+              </small>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
 
   }
 
 
-  // ==============================
+  // ==================================================
   // PESAN
-  // ==============================
+  // ==================================================
 
   function showMessage(text) {
 
-    const message =
-      document.getElementById("message");
+    const element =
+      document
+        .getElementById("message");
 
-    message.innerText = text;
+
+    element.innerText = text;
+
 
     setTimeout(function() {
 
-      message.innerText = "";
+      element.innerText = "";
 
     }, 4000);
 
   }
 
 
-  // ==============================
+  // ==================================================
   // MULAI
-  // ==============================
+  // ==================================================
 
   getPrice();
 
-  setInterval(getPrice, 5000);
+
+  // Update setiap 15 detik.
+  // Tidak terlalu sering agar API tidak cepat
+  // terkena rate limit.
+
+  setInterval(
+    getPrice,
+    15000
+  );
+
 
   updateAccount();
 
